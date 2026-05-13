@@ -1,0 +1,17 @@
+# Virtual environment
+venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Environment variables (API keys — never commit these)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db

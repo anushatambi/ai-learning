@@ -1,1 +1,1 @@
-message = "Hello from main"
+message = "Hello from branch B"

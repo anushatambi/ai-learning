@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Weekly Pulse - Tech Newsletter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .main-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .main-header .date {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .main-header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .section-divider {
+            height: 3px;
+            width: 60px;
+            border-radius: 3px;
+            margin-bottom: 25px;
+        }
+        
+        /* Grid Layout - 4 columns */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        /* Card Styles */
+        .news-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-summary {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: gap 0.2s ease;
+        }
+        
+        .read-more:hover {
+            gap: 12px;
+            color: #1d4ed8;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            background: white;
+            border-radius: 16px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                gap: 20px;
+            }
+            .card-title {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .main-header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 15px;
+            }
+            .main-header {
+                padding: 30px 15px;
+            }
+            .main-header h1 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .news-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+            .read-more {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-header">
+            <h1>
+                <span>📬</span>
+                Weekly Pulse
+            </h1>
+            <div class="date">May 08, 2026</div>
+            <div class="tagline">Your AI-curated digest of tech innovation</div>
+        </div>
+        
+        
+            <div class="section">
+                <div class="section-header" style="border-left-color: #2563eb;">
+                    <span class="section-icon">🤖</span>
+                    <h2 class="section-title">Ai Ml</h2>
+                </div>
+                <div class="section-divider" style="background: #2563eb;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop" 
+                             alt="Google DeepMind Unveils AlphaGeometry: AI That Sol"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Google DeepMind Unveils AlphaGeometry: AI That Solves Olympiad Math</h3>
+                        <p class="card-summary">Google DeepMind has released AlphaGeometry, a groundbreaking AI system that combines neural language models with symbolic reasoning to solve complex geometry problems at an Olympiad level. The system achieved medal-worthy performance by generating millions of synthetic theorems and proofs. This breakthrough represents a major step toward AI that can reason mathematically and could revolutionize how we approach automated theorem proving and mathematical education at all levels.</p>
+                        <a href="https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" 
+                             alt="OpenAI Begins Training GPT-5: Enhanced Reasoning a"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">OpenAI Begins Training GPT-5: Enhanced Reasoning and Multimodal Capabilities</h3>
+                        <p class="card-summary">OpenAI has officially begun training GPT-5, the next generation of their language model. The new model features significantly improved reasoning capabilities, better factual accuracy, and native multimodal understanding. Early benchmarks suggest GPT-5 will excel at mathematics, coding, and scientific reasoning while implementing advanced safety measures. Industry experts anticipate a release in late 2025 with API access following shortly after widespread testing and red-teaming.</p>
+                        <a href="https://openai.com/blog/gpt-5-training" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" 
+                             alt="Meta Open-Sources Llama 3.2: 100B Parameter Model "
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Meta Open-Sources Llama 3.2: 100B Parameter Model for Research</h3>
+                        <p class="card-summary">Meta has released Llama 3.2, their most powerful open-source language model featuring 100 billion parameters and advanced multimodal capabilities. The model can process both text and images, making it ideal for document analysis, visual question answering, and content generation applications. Researchers worldwide can access model weights through an application process, democratizing access to cutting-edge AI technology. Early adopters report impressive performance on industry benchmarks.</p>
+                        <a href="https://ai.meta.com/blog/llama-3-2/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1675557009860-9e6c41d2d4d5?w=400&h=300&fit=crop" 
+                             alt="Anthropic Launches Claude 3.5 Sonnet with 1M Token"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Anthropic Launches Claude 3.5 Sonnet with 1M Token Context Window</h3>
+                        <p class="card-summary">Anthropic has released Claude 3.5 Sonnet, featuring a 1 million token context window capable of processing entire books in a single request. The model demonstrates improved reasoning, reduced hallucination rates, and enhanced ability to follow complex instructions across extended conversations. Enterprise customers report significant productivity gains in document analysis and code review tasks. The model is available immediately through Anthropic's API and Amazon Bedrock for enterprise deployment.</p>
+                        <a href="https://www.anthropic.com/news/claude-3-5-sonnet" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #3b82f6;">
+                    <span class="section-icon">💻</span>
+                    <h2 class="section-title">Dev Opensource</h2>
+                </div>
+                <div class="section-divider" style="background: #3b82f6;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=300&fit=crop" 
+                             alt="VS Code 1.95 Released: GitHub Copilot Integration "
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">VS Code 1.95 Released: GitHub Copilot Integration and Performance Boost</h3>
+                        <p class="card-summary">Microsoft has released Visual Studio Code 1.95 with deep GitHub Copilot integration, featuring inline chat suggestions that appear directly in your code editor. Performance improvements include 30% faster startup times, reduced memory usage by 25%, and optimized extension loading. The update adds native Python 3.13 support, enhanced JavaScript debugging tools, and real-time error detection. Developers can expect a smoother coding experience with better autocomplete and instant feedback.</p>
+                        <a href="https://code.visualstudio.com/updates/v1_95" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop" 
+                             alt="Rust 1.82 Delivers 15% Faster Compilation and Impr"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Rust 1.82 Delivers 15% Faster Compilation and Improved Error Messages</h3>
+                        <p class="card-summary">The Rust team has released version 1.82 with major compiler optimizations, reducing debug build compilation times by up to 15%. Error messages are now more readable with actionable suggestions for common mistakes. The update stabilizes 15 new APIs and improves the borrow checker's ability to analyze complex code patterns. Memory safety features include additional compile-time checks for common pitfalls. This release makes Rust more accessible while maintaining performance and safety guarantees.</p>
+                        <a href="https://blog.rust-lang.org/2025/01/09/Rust-1.82.0.html" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1605745341112-85968b19335d?w=400&h=300&fit=crop" 
+                             alt="Docker Desktop 4.30: AI-Powered Container Image Op"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Docker Desktop 4.30: AI-Powered Container Image Optimization</h3>
+                        <p class="card-summary">Docker Desktop 4.30 introduces AI-powered container optimization tools that automatically identify and reduce image sizes by up to 60%. The release includes enhanced security scanning with real-time vulnerability detection, improved Kubernetes integration, and a redesigned dashboard for easier management. Predictive analytics help optimize resource allocation and reduce build times by 40%. Native Apple Silicon support and better networking performance round out this major update for developers.</p>
+                        <a href="https://www.docker.com/blog/docker-desktop-4-30/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=400&h=300&fit=crop" 
+                             alt="GitHub Announces Copilot Workspace: AI-Powered Dev"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">GitHub Announces Copilot Workspace: AI-Powered Development Environment</h3>
+                        <p class="card-summary">GitHub has launched Copilot Workspace, an AI-native development environment that assists with planning, coding, testing, and debugging entire features. The system understands codebase context across repositories and can generate pull requests with complete changes. Early beta testers report 50% faster feature delivery and significantly reduced bug rates. The tool integrates seamlessly with existing GitHub workflows and supports multiple programming languages for enterprise teams.</p>
+                        <a href="https://github.com/features/copilot-workspace" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #60a5fa;">
+                    <span class="section-icon">🏭</span>
+                    <h2 class="section-title">Industry</h2>
+                </div>
+                <div class="section-divider" style="background: #60a5fa;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&h=300&fit=crop" 
+                             alt="Microsoft Acquires AI Infrastructure Startup Neura"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Microsoft Acquires AI Infrastructure Startup NeuralScale for $500M</h3>
+                        <p class="card-summary">Microsoft has acquired NeuralScale for $500 million, an AI infrastructure startup specializing in optimizing AI workloads across cloud and edge devices. The startup's technology reduces inference costs by up to 40% and will be integrated into Azure Machine Learning and Cognitive Services. This acquisition strengthens Microsoft's position against Google and Amazon in the enterprise AI market. Industry analysts expect this move to accelerate Microsoft's AI market share growth significantly over the next year.</p>
+                        <a href="https://news.microsoft.com/neuralscale-acquisition" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop" 
+                             alt="Tech Layoffs Continue as AI Automates 15,000 Posit"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Tech Layoffs Continue as AI Automates 15,000 Positions Industry-Wide</h3>
+                        <p class="card-summary">Major tech companies including Google, Amazon, and Meta have announced additional layoffs totaling 15,000 positions as AI automation transforms the industry. Affected roles include middle management, content moderation, and customer support positions being automated by generative AI systems. Companies are simultaneously hiring AI specialists, data scientists, and ML engineers, signaling a workforce transformation. Unions are calling for retraining programs to help affected workers transition to AI-adjacent technical roles.</p>
+                        <a href="https://techcrunch.com/tech-layoffs-ai-automation" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=300&fit=crop" 
+                             alt="AWS Launches Trainium 3: 50% Better Price-Performa"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">AWS Launches Trainium 3: 50% Better Price-Performance Than Nvidia GPUs</h3>
+                        <p class="card-summary">Amazon Web Services has unveiled Trainium 3, their third-generation AI training chip designed to directly compete with Nvidia's H100 GPU. The new chip offers 50% better price-performance and trains large language models 40% faster while consuming 30% less energy. Major customers including Anthropic and Airbnb have committed to using the chips for their AI workloads. Available in EC2 instances starting Q3 2025, Trainium 3 could significantly reduce AI infrastructure costs for businesses.</p>
+                        <a href="https://aws.amazon.com/trainium3" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&h=300&fit=crop" 
+                             alt="Nvidia Hits $3 Trillion Market Cap on AI Chip Dema"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Nvidia Hits $3 Trillion Market Cap on AI Chip Demand Surge</h3>
+                        <p class="card-summary">Nvidia has reached a $3 trillion market capitalization as demand for AI chips continues to surge globally. The company's H100 and upcoming B200 GPUs are essential infrastructure for training large language models across major tech companies and AI startups. Revenue from data center chips has grown 400% year-over-year, with no signs of slowing. Analysts predict continued growth as enterprises accelerate AI adoption, though competition from AMD, Intel, and custom chips from cloud providers is intensifying.</p>
+                        <a href="https://www.reuters.com/technology/nvidia-3-trillion-market-cap" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #7c3aed;">
+                    <span class="section-icon">🏆</span>
+                    <h2 class="section-title">Hackathon</h2>
+                </div>
+                <div class="section-divider" style="background: #7c3aed;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=400&h=300&fit=crop" 
+                             alt="Global AI Hackathon 2025: 10,000 Developers Compet"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Global AI Hackathon 2025: 10,000 Developers Compete for $1M Prize</h3>
+                        <p class="card-summary">The Global AI Hackathon 2025 has launched with over 10,000 participants from 80 countries competing for a $1 million prize pool. Developers are building AI solutions addressing climate change, healthcare accessibility, and education challenges. The event features mentorship from Google, Microsoft, and OpenAI engineers with access to cutting-edge AI models and cloud computing resources. Winners will be announced at the finals in San Francisco with opportunities for incubation and venture capital funding for promising projects.</p>
+                        <a href="https://globalaihackathon.com/2025" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=300&fit=crop" 
+                             alt="MLH Season 2025 Kicks Off: 200+ Hackathons Worldwi"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">MLH Season 2025 Kicks Off: 200+ Hackathons Worldwide</h3>
+                        <p class="card-summary">Major League Hacking has launched their 2025 season featuring over 200 hackathons across 30 countries. The season includes specialized tracks for AI, open source, sustainability, and healthcare innovation. Participants can earn points toward global rankings and qualify for the MLH Championship Finals with scholarship prizes. Corporate sponsors include GitHub, DigitalOcean, and SendGrid, providing APIs, cloud credits, and mentorship to all participants throughout the competitive season.</p>
+                        <a href="https://mlh.io/season/2025" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400&h=300&fit=crop" 
+                             alt="Space Apps Challenge 2025: NASA Seeks Space Techno"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Space Apps Challenge 2025: NASA Seeks Space Technology Solutions</h3>
+                        <p class="card-summary">NASA's International Space Apps Challenge 2025 is accepting registrations for their annual hackathon focused on space technology and Earth science. Participants will tackle challenges including lunar exploration, climate monitoring, and deep space communication. The event features data from NASA missions including James Webb Space Telescope and Mars rovers. Winning solutions receive recognition from NASA and opportunities for further development with space agency partners and commercial space companies.</p>
+                        <a href="https://www.spaceappschallenge.org/2025" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop" 
+                             alt="Google Solution Challenge 2025: $100K for Social I"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Google Solution Challenge 2025: $100K for Social Impact Apps</h3>
+                        <p class="card-summary">Google has announced the 2025 Solution Challenge, inviting university students worldwide to build applications addressing United Nations Sustainable Development Goals. Winners receive $100,000 in prizes plus mentorship from Google engineers and product managers. The challenge emphasizes AI-powered solutions for education, healthcare, economic opportunity, and environmental sustainability. Registration is open through March with project submissions due in June for final judging by Google executives.</p>
+                        <a href="https://developers.google.com/community/gdsc-solution-challenge" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #06b6d4;">
+                    <span class="section-icon">📊</span>
+                    <h2 class="section-title">Datascience</h2>
+                </div>
+                <div class="section-divider" style="background: #06b6d4;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" 
+                             alt="Pandas 3.0 Released: 10x Faster Data Processing wi"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Pandas 3.0 Released: 10x Faster Data Processing with Polars Integration</h3>
+                        <p class="card-summary">The Pandas team has released version 3.0 with a completely rewritten backend integrating Polars' query engine for dramatic performance improvements. Data processing operations now run 10x faster, with some aggregations achieving 50x speed improvements on large datasets. The update maintains full backward compatibility while adding new features for handling missing data and parallel processing. Memory usage is reduced by up to 40%, allowing data scientists to process gigabyte-scale datasets on standard laptops without performance degradation.</p>
+                        <a href="https://pandas.pydata.org/blog/2025/01/15/pandas-3-0" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1533743983669-94c0f7bddaf2?w=400&h=300&fit=crop" 
+                             alt="JupyterLab 5.0 Introduces Real-Time Collaboration "
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">JupyterLab 5.0 Introduces Real-Time Collaboration and AI Assistant</h3>
+                        <p class="card-summary">JupyterLab 5.0 has been released with real-time collaboration allowing multiple users to edit notebooks simultaneously. The update includes an integrated AI assistant for code generation, explanation, and debugging powered by local or cloud LLMs. New visualization tools support interactive plots with auto-completion and real-time updates. Performance improvements include lazy loading for large notebooks and reduced memory usage. The extension system has been redesigned for easier customization.</p>
+                        <a href="https://blog.jupyter.org/jupyterlab-5-0" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" 
+                             alt="Snowflake Arctic: Open Enterprise-Grade LLM for SQ"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Snowflake Arctic: Open Enterprise-Grade LLM for SQL and Code</h3>
+                        <p class="card-summary">Snowflake has released Arctic, an open enterprise-grade LLM optimized for SQL generation, code completion, and business intelligence tasks. The 480B parameter MoE model outperforms competitors on enterprise benchmarks while being cost-efficient to deploy. Arctic is available on Hugging Face and Snowflake Marketplace with permissive licensing for commercial use. Early adopters report 40% faster query development and significant productivity gains in data analysis workflows across large enterprise deployments.</p>
+                        <a href="https://www.snowflake.com/arctic" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" 
+                             alt="Databricks Launches DBRX: Open Source MoE Model fo"
+                             loading="lazy"
+                             onerror="this.src='https://via.placeholder.com/300x200/3b82f6/white?text=News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Databricks Launches DBRX: Open Source MoE Model for Data Analytics</h3>
+                        <p class="card-summary">Databricks has released DBRX, an open source mixture-of-experts model achieving state-of-the-art performance on data analytics and SQL benchmarks. The 132B parameter model excels at natural language to SQL translation, data visualization generation, and business intelligence automation. Available under Apache 2.0 license, organizations can deploy DBRX on their own infrastructure for complete data privacy. The model includes fine-tuning recipes for domain-specific analytics applications.</p>
+                        <a href="https://www.databricks.com/blog/dbrx" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+        
+        <div class="footer">
+            <p>Weekly Pulse • AI-powered news curation</p>
+            <p style="margin-top: 10px; font-size: 0.75rem;">Each "Read More" links directly to the original source article</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+# News Sources for Weekly Pulse - All Free/Open Access
+
+sections:
+  section1_ai_ml:
+    name: "AI & ML: Top Developments"
+    rss_feeds:
+      - "https://arxiv.org/rss/cs.AI"
+      - "https://openai.com/blog/rss.xml"
+      - "https://deepmind.com/blog/feed"
+      - "https://huggingface.co/blog/feed.xml"
+    websites:
+      - "news.ycombinator.com"
+      - "mittechreview.com"
+
+  section2_dev_opensource:
+    name: "Dev & Open Source"
+    rss_feeds:
+      - "https://github.blog/feed/"
+      - "https://dev.to/feed"
+    websites:
+      - "github.com/trending"
+
+  section3_industry:
+    name: "Industry News: AI & GenAI"
+    rss_feeds:
+      - "https://techcrunch.com/tag/artificial-intelligence/feed/"
+      - "https://venturebeat.com/category/ai/feed/"
+    websites:
+      - "reuters.com/technology"
+
+  section4_hackathon:
+    name: "Hackathon & Competition"
+    rss_feeds:
+      - "https://medium.com/feed/tag/hackathon"
+      - "https://news.ycombinator.com/rss"
+    websites:
+      - "devpost.com"
+
+  section5_datascience:
+    name: "Data Science & Analytics"
+    rss_feeds:
+      - "https://towardsdatascience.com/feed"
+      - "https://kdnuggets.com/feed"
+    websites:
+      - "databricks.com/blog"
+
+search_queries:
+  section1: "latest AI model release 2026 OR LLM breakthrough research paper"
+  section2: "new open source library GitHub trending weekly"
+  section3: "AI startup funding OR generative AI product launch"
+  section4: "hackathon prize deadline OR Kaggle competition"
+  section5: "data science visualization tool MLOps update"

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weekly Pulse - Multi-Agent Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'SF Mono', 'Consolas', monospace;
+            background: #0a0e27;
+            color: #e0e4f0;
+            line-height: 1.5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #2d3e6e;
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #a5f0ff, #7c5eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .header p {
+            color: #8a9bc0;
+            margin-top: 0.5rem;
+        }
+
+        .download-btn {
+            background: #2d3e6e;
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            transition: all 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #4a6a9e;
+            transform: scale(1.02);
+        }
+
+        /* Cards */
+        .card {
+            background: #0f132e;
+            border-radius: 16px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2a2f4e;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #b8c7ff;
+            border-left: 4px solid #7c5eff;
+            padding-left: 12px;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem 0;
+            color: #c0d0ff;
+        }
+
+        /* Architecture Diagram */
+        .diagram-box {
+            background: #070b1c;
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            font-size: 12px;
+            line-height: 1.4;
+            white-space: pre;
+        }
+
+        /* Agent Grid */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .agent-card {
+            background: #0b0f24;
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 3px solid #7c5eff;
+        }
+
+        .agent-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #c6d4ff;
+        }
+
+        .agent-llm {
+            font-size: 0.75rem;
+            color: #6e7fb0;
+            margin: 4px 0;
+        }
+
+        .agent-desc {
+            font-size: 0.85rem;
+            margin-top: 8px;
+            color: #b0bbdf;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid #2a2f4e;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background: #121736;
+            color: #b8c7ff;
+        }
+
+        /* Sequence */
+        .sequence {
+            background: #070b1c;
+            padding: 1rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 11px;
+        }
+
+        /* Badge */
+        .badge {
+            background: #1e2a4a;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            display: inline-block;
+            margin-right: 6px;
+            color: #9bb4e0;
+        }
+
+        .free {
+            color: #7fff9e;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            font-size: 0.8rem;
+            color: #5c6e97;
+            border-top: 1px solid #1e2446;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .diagram-box {
+                font-size: 8px;
+            }
+            .sequence {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="architectureContainer">
+    <div class="header">
+        <h1>🏗️ THE WEEKLY PULSE</h1>
+        <p>Multi-Agent Newsletter Architecture | Open Source · Zero Cost</p>
+        <button class="download-btn" onclick="downloadHTML()">📥 Download as HTML (for records)</button>
+    </div>
+
+    <!-- ================= HIGH LEVEL DIAGRAM ================= -->
+    <div class="card">
+        <h2>📡 High-Level Architecture</h2>
+        <div class="diagram-box">
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                              WEEKLY PULSE SYSTEM                                      │
+│                           (Multi-Agent Orchestrator)                                  │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+                                          │
+                                          ▼
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│                           ORCHESTRATOR AGENT (Master)                                │
+│                      [Pure Python – No LLM – Phase Manager]                          │
+│  Functions: spawn_agents() | collect_results() | route_to_hitl() | invoke_renderer()│
+│                              handle_error() | read/write_memory()                    │
+└─────────────────────────────────────────────────────────────────────────────────────┘
+                                          │
+                    ┌─────────────────────┼─────────────────────┐
+                    ▼                     ▼                     ▼
+          ┌──────────────────┐  ┌──────────────────┐  ┌──────────────────┐
+          │  PHASE 1:        │  │  PHASE 2:        │  │  PHASE 3:        │
+          │  DISCOVERY       │──│  HITL            │──│  GENERATION      │
+          │  (Parallel)      │  │  (User Selects)  │  │  (Parallel)      │
+          └──────────────────┘  └──────────────────┘  └──────────────────┘
+                    │                     │                     │
+                    ▼                     ▼                     ▼
+    ┌───────────────────────────┐  ┌─────────────┐  ┌───────────────────────────┐
+    │ 5 SECTION RESEARCH AGENTS │  │ USER PROXY  │  │ 20 CONTENT + 20 MEDIA     │
+    │   (Running in Parallel)   │  │   AGENT     │  │    AGENTS (Parallel)      │
+    └───────────────────────────┘  └─────────────┘  └───────────────────────────┘
+                    │                                       │
+                    ▼                                       ▼
+    ┌───────────────────────────┐                ┌───────────────────────────┐
+    │ Each Section Agent has:   │                │ CONTENT SYNTHESIS AGENT   │
+    │                           │                │ [Llama 3.2 3B via Ollama] │
+    │  ┌─────────────────────┐  │                │ - Fetches article content │
+    │  │ RESEARCH SUBAGENT   │  │                │ - 50-word summary         │
+    │  │ [Phi-3 mini/Ollama] │  │                │ - Cleans headline         │
+    │  │ - 3 iterations      │  │                └───────────────────────────┘
+    │  │ - DuckDuckGo search │  │                         │
+    │  │ - RSS feedparser    │  │                         ▼
+    │  │ - BS4 scraping      │  │                ┌───────────────────────────┐
+    │  └─────────────────────┘  │                │ MEDIA GENERATOR AGENT     │
+    │           │               │                │ [Tool-based + Diffusers]  │
+    │           ▼               │                │ - OG image scrape         │
+    │  ┌─────────────────────┐  │                │ - Unsplash fallback       │
+    │  │ QUALITY & CURATION  │  │                │ - Stable Diffusion final  │
+    │  │ [Llama 3.2 3B]      │  │                │ - 16:9 resize & save      │
+    │  │ - Scores 5 factors  │  │                └───────────────────────────┘
+    │  │ - Flags HIGH IMPACT │  │                           │
+    │  │ - Returns Top 6     │  │                           │
+    │  └─────────────────────┘  │                           │
+    └───────────────────────────┘                           │
+                    │                                       │
+                    └───────────────┬───────────────────────┘
+                                    ▼
+                    ┌───────────────────────────────────────┐
+                    │         PHASE 4: RENDERING            │
+                    │         [RENDERING AGENT]              │
+                    │  - 11 Quality Checks                   │
+                    │  - Jinja2 HTML Template                │
+                    │  - PDF Export (pdfkit)                 │
+                    │  - metadata.json generation            │
+                    │  - Write to /output/YYYY-MM-DD/        │
+                    └───────────────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────────────────┐
+                    │         FINAL OUTPUTS                  │
+                    │  📧 newsletter.html (email-ready)      │
+                    │  📄 newsletter.pdf                     │
+                    │  📊 metadata.json                      │
+                    │  🖼️ images/ (20 files)                 │
+                    └───────────────────────────────────────┘
+        </div>
+    </div>
+
+    <!-- ================= AGENT DETAILS ================= -->
+    <div class="card">
+        <h2>🤖 Agent Breakdown (8 Agents Total)</h2>
+        <div class="agent-grid">
+            <div class="agent-card"><div class="agent-name">🎛️ Orchestrator</div><div class="agent-llm">No LLM · Python</div><div class="agent-desc">Master coordinator: spawns agents, phase sequencing, error handling, memory read/write.</div></div>
+            <div class="agent-card"><div class="agent-name">🔍 Research Subagent</div><div class="agent-llm">🧠 Phi-3 mini (Ollama)</div><div class="agent-desc">3 search iterations, DuckDuckGo, RSS, scraping → 8-15 raw candidates.</div></div>
+            <div class="agent-card"><div class="agent-name">⭐ Quality & Curation</div><div class="agent-llm">🧠 Llama 3.2 3B (Ollama)</div><div class="agent-desc">Scores recency, authority, impact, novelty, relevance → Top 6 + HIGH IMPACT flag.</div></div>
+            <div class="agent-card"><div class="agent-name">👤 User Proxy (HITL)</div><div class="agent-llm">No LLM · CLI</div><div class="agent-desc">Displays top6 per section → user selects 4 → returns 20 confirmed items.</div></div>
+            <div class="agent-card"><div class="agent-name">✍️ Content Synthesis</div><div class="agent-llm">🧠 Llama 3.2 3B</div><div class="agent-desc">Fetches article → 50-word faithful summary + cleaned headline.</div></div>
+            <div class="agent-card"><div class="agent-name">🖼️ Media Generator</div><div class="agent-llm">Tool-based + Diffusers</div><div class="agent-desc">OG image → Unsplash → Stable Diffusion (local) → 16:9 resize.</div></div>
+            <div class="agent-card"><div class="agent-name">📦 Rendering Agent</div><div class="agent-llm">No LLM · Jinja2+pdfkit</div><div class="agent-desc">11 quality checks → HTML email + PDF + metadata.json.</div></div>
+            <div class="agent-card"><div class="agent-name">🧠 Memory Agent</div><div class="agent-llm">Embedded in Orch</div><div class="agent-desc">Deduplication log, last 4 issues, story hashes.</div></div>
+        </div>
+    </div>
+
+    <!-- ================= TOOLS AND SOURCES ================= -->
+    <div class="card">
+        <h2>🛠️ Free Tools & APIs (Zero Cost)</h2>
+        <table>
+            <tr><th>Tool</th><th>Purpose</th><th>Setup</th></tr>
+            <tr><td>Ollama</td><td>Local LLMs (Llama 3.2, Phi-3)</td><td>ollama.com</td></tr>
+            <tr><td>duckduckgo-search</td><td>Web search (free)</td><td>pip install duckduckgo-search</td></tr>
+            <tr><td>feedparser</td><td>RSS fetching</td><td>pip install feedparser</td></tr>
+            <tr><td>BeautifulSoup4</td><td>HTML scraping</td><td>pip install beautifulsoup4</td></tr>
+            <tr><td>Unsplash Source</td><td>Stock images</td><td>No key required</td></tr>
+            <tr><td>diffusers + torch</td><td>AI image fallback</td><td>pip install diffusers torch</td></tr>
+            <tr><td>Jinja2</td><td>HTML templates</td><td>pip install Jinja2</td></tr>
+            <tr><td>pdfkit + wkhtmltopdf</td><td>PDF export</td><td>pip install pdfkit + download wkhtmltopdf</td></tr>
+            <tr><td>Groq (optional)</td><td>Cloud LLM fallback</td><td>Free tier, console.groq.com</td></tr>
+        </table>
+        <p><span class="badge">✓</span> <strong class="free">No paid APIs required</strong> — All components work completely free.</p>
+    </div>
+
+    <!-- ================= SEQUENCE DIAGRAM ================= -->
+    <div class="card">
+        <h2>⏱️ Agent Interaction Sequence</h2>
+        <div class="sequence">
+Orchestrator → Section Agents (5 parallel)
+   → 3 iterations per section (Research Subagent + DuckDuckGo + RSS)
+   → Quality Agent scores each candidate (5 factors)
+   → returns Top 6 per section
+
+Orchestrator → User Proxy Agent
+   → CLI displays Top6 × 5 sections
+   → User selects 4 per section
+   → returns confirmed 20 items
+
+Orchestrator → Content Agents (20 parallel)
+   → fetch article + Llama 3.2 summary (50 words ±3)
+
+Orchestrator → Media Agents (20 parallel)
+   → OG image → Unsplash → Stable Diffusion fallback
+   → save 16:9 800x450 JPG
+
+Orchestrator → Rendering Agent
+   → 11 quality checks
+   → Render HTML email + PDF + metadata.json
+   → Write to /output/YYYY-MM-DD/
+        </div>
+    </div>
+
+    <!-- ================= SECTIONS ================= -->
+    <div class="card">
+        <h2>📰 5 Newsletter Sections (4 items each → 20 total)</h2>
+        <ul style="margin-left: 1.5rem;">
+            <li><strong>Section 1:</strong> AI & ML: Top Developments (models, papers, benchmarks)</li>
+            <li><strong>Section 2:</strong> Dev & Open Source (GitHub, frameworks, libraries)</li>
+            <li><strong>Section 3:</strong> Industry News (products, funding, regulation, hiring)</li>
+            <li><strong>Section 4:</strong> Hackathon & Competition (Kaggle, Devpost, fellowships)</li>
+            <li><strong>Section 5:</strong> Data Science & Analytics (BI, MLOps, data infra)</li>
+        </ul>
+    </div>
+
+    <!-- ================= QUALITY CHECKS ================= -->
+    <div class="card">
+        <h2>✅ 11 Pre-Publish Quality Checks (Rendering Agent)</h2>
+        <div class="agent-grid">
+            <div class="agent-card">1. All 20 items present</div>
+            <div class="agent-card">2. Summaries within 47–53 words</div>
+            <div class="agent-card">3. All links reachable (HTTP 200)</div>
+            <div class="agent-card">4. No duplicate URLs (hash)</div>
+            <div class="agent-card">5. No items >14 days old</div>
+            <div class="agent-card">6. All images load</div>
+            <div class="agent-card">7. Max 2 same source/section</div>
+            <div class="agent-card">8. Headlines ≤120 chars</div>
+            <div class="agent-card">9. Alt text on all images</div>
+            <div class="agent-card">10. metadata.json generated</div>
+            <div class="agent-card">11. HTML email-safe + responsive</div>
+        </div>
+    </div>
+
+    <!-- ================= OUTPUT STRUCTURE ================= -->
+    <div class="card">
+        <h2>📁 Output Directory Structure</h2>
+        <div class="diagram-box">
+/output/YYYY-MM-DD/
+├── newsletter.html      # Email-ready, inline CSS
+├── newsletter.pdf       # PDF snapshot
+├── metadata.json        # Full run metadata + quality report
+└── images/
+    ├── sec1_item1.jpg
+    ├── sec1_item2.jpg
+    └── ... (20 files, 16:9, 800x450)
+        </div>
+    </div>
+
+    <!-- ================= DEDUPLICATION & MEMORY ================= -->
+    <div class="card">
+        <h2>🧠 Memory & Deduplication</h2>
+        <p><strong>Within issue:</strong> Priority assignment (Section 1 > 3 > 2 > 5 > 4) · story never repeats</p>
+        <p><strong>Across issues:</strong> Maintain log of last 4 issues (URLs + story hashes) · 30-day memory</p>
+        <p><strong>Exceptions:</strong> Major ongoing stories allowed with <em>new developments</em></p>
+    </div>
+
+    <!-- ================= ERROR HANDLING ================= -->
+    <div class="card">
+        <h2>⚠️ Error Recovery & Fallbacks</h2>
+        <table>
+            <tr><th>Error</th><th>Fallback</th></tr>
+            <tr><td>Ollama timeout</td><td>Retry 3x → Groq free tier</td></tr>
+            <tr><td>Web search fails</td><td>RSS + fallback secondary sources</td></tr>
+            <tr><td>Article scrape 404</td><td>Skip, fetch next candidate</td></tr>
+            <tr><td>All image fetches fail</td><td>Local Stable Diffusion</td></tr>
+            <tr><td>HITL no response (5 min)</td><td>Auto-select top 4 per section</td></tr>
+            <tr><td>&lt;4 items per section</td><td>Expand time window to 14 days</td></tr>
+        </table>
+    </div>
+
+    <div class="footer">
+        Architecture v1.0 · The Weekly Pulse · Multi-Agent Newsletter System · Built for BTech CSE (First Year)<br>
+        All components free/open-source · Ollama + Groq free tier · Gaming laptop ready
+    </div>
+</div>
+
+<script>
+    function downloadHTML() {
+        const content = document.getElementById('architectureContainer').cloneNode(true);
+        const style = document.querySelector('style').innerHTML;
+        const html = `<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><title>The Weekly Pulse - Architecture</title><style>${style}</style></head>
+<body>${content.outerHTML}</body>
+</html>`;
+        const blob = new Blob([html], { type: 'text/html' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'weekly_pulse_architecture.html';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+    }
+</script>
+</body>
+</html>

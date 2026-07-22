@@ -1,0 +1,3 @@
+I learned variables and data types
+I learned functions and args
+I learned error handling

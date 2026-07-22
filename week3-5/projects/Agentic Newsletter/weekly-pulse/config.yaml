@@ -1,0 +1,39 @@
+# Weekly Pulse Newsletter - Configuration File
+
+llm:
+  provider: "ollama"
+  ollama:
+    model_heavy: "llama3.2:3b"
+    model_light: "phi3:mini"
+    temperature: 0.3
+    timeout: 60
+
+newsletter:
+  name: "The Weekly Pulse"
+  sections: 5
+  items_per_section: 4
+  time_window_days: 7
+  max_age_days: 14
+
+search:
+  iterations_per_section: 3
+  max_candidates_per_iteration: 15
+
+quality:
+  min_total_score: 30
+  high_impact_threshold: 45
+  max_same_source_per_section: 2
+
+paths:
+  output_dir: "./output"
+  log_dir: "./logs"
+
+summary:
+  exact_words: 50
+  word_tolerance: 3
+  max_headline_chars: 120
+
+image:
+  width: 800
+  height: 450
+  fallback_to_ai: true

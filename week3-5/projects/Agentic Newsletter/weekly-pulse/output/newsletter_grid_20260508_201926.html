@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Weekly Pulse - Tech Newsletter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1e293b;
+            line-height: 1.5;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        .main-header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            color: white;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        
+        .main-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .main-header .date {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .main-header .tagline {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* Section Styles */
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left-width: 5px;
+            border-left-style: solid;
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .section-divider {
+            height: 3px;
+            width: 60px;
+            border-radius: 3px;
+            margin-bottom: 25px;
+        }
+        
+        /* Grid Layout - 4 columns */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+        
+        /* Card Styles */
+        .news-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 160px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .news-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+        
+        .card-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .card-summary {
+            font-size: 0.85rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: gap 0.2s ease;
+        }
+        
+        .read-more:hover {
+            gap: 12px;
+            color: #1d4ed8;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            background: white;
+            border-radius: 16px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .cards-grid {
+                gap: 20px;
+            }
+            .card-title {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .main-header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 15px;
+            }
+            .main-header {
+                padding: 30px 15px;
+            }
+            .main-header h1 {
+                font-size: 1.5rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+            }
+            .news-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #e2e8f0;
+            }
+            .read-more {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main-header">
+            <h1>
+                <span>📬</span>
+                Weekly Pulse
+            </h1>
+            <div class="date">May 08, 2026</div>
+            <div class="tagline">Your AI-curated digest of tech innovation</div>
+        </div>
+        
+        
+            <div class="section">
+                <div class="section-header" style="border-left-color: #2563eb;">
+                    <span class="section-icon">🤖</span>
+                    <h2 class="section-title">Ai Ml</h2>
+                </div>
+                <div class="section-divider" style="background: #2563eb;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=400&h=300&fit=crop" 
+                             alt="Google DeepMind Unveils AlphaGeometry: AI That Sol"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Google DeepMind Unveils AlphaGeometry: AI That Solves Olympiad Math</h3>
+                        <p class="card-summary">Google DeepMind has released AlphaGeometry, a groundbreaking AI system that combines neural language models with symbolic reasoning to solve complex geometry problems at an Olympiad level. The system achieved medal-worthy performance by generating millions of synthetic theorems and proofs. This breakthrough represents a major step toward AI that can reason mathematically and could revolutionize how we approach automated theorem proving and mathematical education at all levels.</p>
+                        <a href="https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400&h=300&fit=crop" 
+                             alt="OpenAI Announces GPT-4o Mini: Smaller, Faster, Mor"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">OpenAI Announces GPT-4o Mini: Smaller, Faster, More Affordable AI Model</h3>
+                        <p class="card-summary">OpenAI has released GPT-4o Mini, a smaller and more cost-efficient version of their GPT-4o model. The new model offers comparable performance at 60% lower cost, making AI more accessible for developers and businesses. It supports text and vision capabilities with a 128K token context window. Early adopters report excellent results for customer service, content moderation, and data extraction tasks across production environments.</p>
+                        <a href="https://openai.com/index/gpt-4o-mini/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?w=400&h=300&fit=crop" 
+                             alt="Meta Releases Llama 3.1: 405B Parameter Open Sourc"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Meta Releases Llama 3.1: 405B Parameter Open Source Model</h3>
+                        <p class="card-summary">Meta has released Llama 3.1, their largest open-source language model featuring 405 billion parameters. The model matches or exceeds GPT-4 capabilities on several benchmarks while remaining freely available for research and commercial use. Meta partnered with AWS, Google Cloud, and Azure for optimized deployment options. The release includes smaller 8B and 70B versions for different use cases and hardware constraints.</p>
+                        <a href="https://ai.meta.com/blog/meta-llama-3-1/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop" 
+                             alt="Anthropic Launches Claude 3.5 Sonnet with Computer"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Anthropic Launches Claude 3.5 Sonnet with Computer Use Capabilities</h3>
+                        <p class="card-summary">Anthropic has released Claude 3.5 Sonnet, featuring the ability to use computers like humans do - moving cursors, clicking buttons, and typing text. The model can automate complex tasks across desktop applications and web interfaces. Enterprise customers report significant productivity gains in data entry, form filling, and software testing. The computer use capability is available in public beta for developers building automation solutions.</p>
+                        <a href="https://www.anthropic.com/news/claude-3-5-sonnet" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #3b82f6;">
+                    <span class="section-icon">💻</span>
+                    <h2 class="section-title">Dev Opensource</h2>
+                </div>
+                <div class="section-divider" style="background: #3b82f6;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=400&h=300&fit=crop" 
+                             alt="VS Code 1.94 Released: GitHub Copilot Enhancements"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">VS Code 1.94 Released: GitHub Copilot Enhancements and Performance Boost</h3>
+                        <p class="card-summary">Microsoft has released Visual Studio Code 1.94 with enhanced GitHub Copilot integration featuring inline chat and intelligent code predictions. Performance improvements include 20% faster startup times and reduced memory usage. The update adds native support for Python 3.13, improved JavaScript debugging, and real-time error detection. Developers can expect smoother coding experience with better autocomplete and instant feedback across all supported languages.</p>
+                        <a href="https://code.visualstudio.com/updates/v1_94" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop" 
+                             alt="Rust 1.80 Released: LazyCell and LazyLock Features"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Rust 1.80 Released: LazyCell and LazyLock Features Stabilized</h3>
+                        <p class="card-summary">The Rust team has released version 1.80 with stabilized LazyCell and LazyLock types for deferred initialization patterns. The update includes compiler optimizations that reduce build times by up to 10%. Error messages have been improved with better suggestions for common mistakes. The release stabilizes 12 new APIs and enhances the borrow checker's ability to analyze complex code patterns with improved safety guarantees.</p>
+                        <a href="https://blog.rust-lang.org/2024/07/25/Rust-1.80.0.html" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop" 
+                             alt="Docker Desktop 4.33: Enhanced Build Cloud and AI T"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Docker Desktop 4.33: Enhanced Build Cloud and AI Tools</h3>
+                        <p class="card-summary">Docker Desktop 4.33 introduces enhanced Build Cloud capabilities for faster container builds across teams. The release includes AI-powered Dockerfile suggestions and security scanning improvements. Developers can now use predictive analytics to optimize resource allocation and reduce build times by up to 50%. Native Apple Silicon support continues to improve with better performance for ARM-based development workflows.</p>
+                        <a href="https://www.docker.com/blog/docker-desktop-4-33/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=400&h=300&fit=crop" 
+                             alt="GitHub Copilot Workspace Enters General Availabili"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">GitHub Copilot Workspace Enters General Availability</h3>
+                        <p class="card-summary">GitHub has launched Copilot Workspace generally available, an AI-native development environment that helps plan, code, test, and debug entire features. The system understands codebase context across repositories and can generate pull requests with complete changes. Early adopters report 40% faster feature delivery and significantly reduced bug rates. The tool integrates seamlessly with existing GitHub workflows and CI/CD pipelines.</p>
+                        <a href="https://github.com/features/copilot-workspace" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #60a5fa;">
+                    <span class="section-icon">🏭</span>
+                    <h2 class="section-title">Industry</h2>
+                </div>
+                <div class="section-divider" style="background: #60a5fa;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop" 
+                             alt="Microsoft Azure AI Drives Cloud Growth as Demand S"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Microsoft Azure AI Drives Cloud Growth as Demand Surges</h3>
+                        <p class="card-summary">Microsoft has reported strong Azure growth driven by increasing demand for AI infrastructure and services. The company's AI services have seen triple-digit growth as organizations adopt generative AI solutions. CEO Satya Nadella highlighted that over 50,000 organizations now use GitHub Copilot for development. Microsoft continues to invest heavily in AI data centers and GPU infrastructure to meet customer demand.</p>
+                        <a href="https://news.microsoft.com/azure-ai-growth-2024/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=400&h=300&fit=crop" 
+                             alt="Google Cloud Announces Major AI Infrastructure Exp"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Google Cloud Announces Major AI Infrastructure Expansion</h3>
+                        <p class="card-summary">Google Cloud has announced significant investments in AI infrastructure across the United States and Europe. The expansion includes new data centers optimized for TPU and GPU workloads. Google also announced new AI accelerator chips capable of training large language models faster than current hardware. Major customers including Uber and Mercedes-Benz have committed to using Google's AI infrastructure for their workloads.</p>
+                        <a href="https://cloud.google.com/blog/products/infrastructure/google-cloud-ai-infrastructure-expansion" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=300&fit=crop" 
+                             alt="AWS Reports Strong Demand for AI Services and Cust"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">AWS Reports Strong Demand for AI Services and Custom Chips</h3>
+                        <p class="card-summary">Amazon Web Services has reported strong growth driven by surging AI workloads and cloud migration. AWS CEO Adam Selipsky noted that Anthropic and other AI companies are deploying massive clusters of Trainium and Inferentia chips. The company announced new price reductions for GPU instances and expanded availability of AI services. AWS continues to see strong demand from both startups and enterprise customers.</p>
+                        <a href="https://www.aboutamazon.com/news/aws/aws-ai-growth-2024" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop" 
+                             alt="Nvidia Announces Next-Gen AI GPUs for Advanced Wor"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Nvidia Announces Next-Gen AI GPUs for Advanced Workloads</h3>
+                        <p class="card-summary">Nvidia has announced next-generation GPUs featuring significantly more compute capacity than current chips. The new architecture supports massive memory per GPU, enabling training of trillion-parameter models on a single node. Major cloud providers including AWS, Azure, and Google Cloud have committed to deploying these new GPUs in their data centers. The announcement solidifies Nvidia's leadership in AI hardware.</p>
+                        <a href="https://nvidianews.nvidia.com/news/nvidia-next-gen-gpu-announcement" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #7c3aed;">
+                    <span class="section-icon">🏆</span>
+                    <h2 class="section-title">Hackathon</h2>
+                </div>
+                <div class="section-divider" style="background: #7c3aed;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=400&h=300&fit=crop" 
+                             alt="Google AI Hackathon: $1M Prize for Climate Solutio"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Google AI Hackathon: $1M Prize for Climate Solutions</h3>
+                        <p class="card-summary">Google has announced the AI Hackathon with a $1 million prize pool for solutions addressing climate change. Developers can use Google Cloud AI services and Gemini models to build applications for carbon tracking, renewable energy optimization, and climate risk prediction. The hackathon runs for six weeks with mentorship from Google engineers. Winners will be announced at Google I/O with opportunities for Google Cloud credits and startup funding.</p>
+                        <a href="https://events.withgoogle.com/ai-hackathon/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop" 
+                             alt="AWS Generative AI Hackathon Features Major Prizes"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">AWS Generative AI Hackathon Features Major Prizes</h3>
+                        <p class="card-summary">Amazon Web Services has launched a Generative AI Hackathon offering substantial prizes for innovative applications using Amazon Bedrock and SageMaker. Participants can build chatbots, code generators, and content creation tools using Claude, Llama, and Titan models. The hackathon includes technical workshops and mentorship from AWS AI specialists. Winning teams receive AWS credits and incubation support for their projects.</p>
+                        <a href="https://aws.amazon.com/events/generative-ai-hackathon/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&h=300&fit=crop" 
+                             alt="Microsoft Global Hackathon: Build with Copilot and"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Microsoft Global Hackathon: Build with Copilot and Azure AI</h3>
+                        <p class="card-summary">Microsoft has announced the Global Hackathon focused on building AI-powered applications using GitHub Copilot and Azure AI services. The event offers significant prizes across categories including healthcare, education, and sustainability. Participants receive free Azure credits and access to GPT-4, Llama, and Phi-3 models. The hackathon includes virtual workshops and in-person finals at Microsoft headquarters.</p>
+                        <a href="https://developer.microsoft.com/en-us/global-hackathon" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=300&fit=crop" 
+                             alt="Hugging Face Open-Source AI Challenge"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Hugging Face Open-Source AI Challenge</h3>
+                        <p class="card-summary">Hugging Face has launched the Open-Source AI Challenge with prizes for contributions to the open-source AI ecosystem. Participants can build new models, datasets, or applications using the Hugging Face platform. The challenge emphasizes efficient small language models, multimodal systems, and responsible AI development. Winners receive Hugging Face Enterprise credits and opportunities to present at NeurIPS.</p>
+                        <a href="https://huggingface.co/challenge/open-source-ai" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-header" style="border-left-color: #06b6d4;">
+                    <span class="section-icon">📊</span>
+                    <h2 class="section-title">Datascience</h2>
+                </div>
+                <div class="section-divider" style="background: #06b6d4;"></div>
+                <div class="cards-grid">
+                    
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" 
+                             alt="Pandas 2.3 Released: Enhanced Performance and PyAr"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Pandas 2.3 Released: Enhanced Performance and PyArrow Integration</h3>
+                        <p class="card-summary">The Pandas team has released version 2.3 with enhanced PyArrow integration for faster data processing. String operations now run up to 30% faster with reduced memory usage by 40%. The update includes new functions for handling missing data and parallel processing across multiple cores. Data scientists can now process larger-than-memory datasets using the new chunked array backend, improving workflow efficiency for big data analysis.</p>
+                        <a href="https://pandas.pydata.org/blog/2024/10/15/pandas-2-3/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1533743983669-94c0f7bddaf2?w=400&h=300&fit=crop" 
+                             alt="JupyterLab 4.3 Introduces Real-Time Collaboration "
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">JupyterLab 4.3 Introduces Real-Time Collaboration Features</h3>
+                        <p class="card-summary">JupyterLab 4.3 has been released with real-time collaboration allowing multiple users to edit notebooks simultaneously. The update includes improved extension system and performance optimizations for large notebooks. New visualization tools support interactive plots with auto-completion and real-time updates. The release also adds better integration with cloud storage providers and version control systems for team workflows.</p>
+                        <a href="https://blog.jupyter.org/jupyterlab-4-3-released" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1533743983669-94c0f7bddaf2?w=400&h=300&fit=crop" 
+                             alt="Apache Spark 4.0 Released: 2x Faster Performance a"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Apache Spark 4.0 Released: 2x Faster Performance and Python Enhancements</h3>
+                        <p class="card-summary">The Apache Spark community has released version 4.0 with 2x faster performance for many workloads through improved query optimization. Python users benefit from native DataFrame API improvements and better type hints. The update includes enhanced support for machine learning pipelines and graph processing. Spark 4.0 also introduces improved Kubernetes integration and better resource management for multi-tenant deployments.</p>
+                        <a href="https://spark.apache.org/releases/spark-release-4-0-0.html" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop" 
+                             alt="Snowflake Arctic LLM for Enterprise Data Analysis"
+                             loading="lazy"
+                             style="width:100%; height:100%; object-fit:cover;"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300/2563eb/white?text=AI+Generated+News+Image'">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">Snowflake Arctic LLM for Enterprise Data Analysis</h3>
+                        <p class="card-summary">Snowflake has released Arctic, an open enterprise-grade LLM optimized for SQL generation and business intelligence tasks. The model outperforms competitors on enterprise benchmarks while being cost-efficient to deploy. Arctic is available on Snowflake Marketplace with permissive licensing for commercial use. Early adopters report faster query development and significant productivity gains in data analysis workflows.</p>
+                        <a href="https://www.snowflake.com/blog/arctic-llm-enterprise/" class="read-more" target="_blank" rel="noopener noreferrer">
+                            Read More →
+                        </a>
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+            
+        
+        <div class="footer">
+            <p>Weekly Pulse • AI-powered news curation</p>
+            <p style="margin-top: 10px; font-size: 0.75rem;">Each "Read More" links directly to the original source article</p>
+        </div>
+    </div>
+</body>
+</html>

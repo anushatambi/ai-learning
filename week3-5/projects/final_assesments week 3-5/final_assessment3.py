@@ -1,22 +1,31 @@
 import json
+from typing import List
 
 class LearningTracker:
-    def __init__(self, current_week):
+    current_week: int
+    topic: str
+    increment_day: bool
+    total_topics: int
+    filename: str
+    topics_studied: List[str]
+    days_completed: int
+
+    def __init__(self, current_week: int) -> None:
         self.topics_studied = []
         self.days_completed = 0
         self.current_week = current_week
 
-    def mark_topic_complete(self, topic, increment_day=True):
+    def mark_topic_complete(self, topic: str, increment_day: bool = True) -> None:
         self.topics_studied.append(topic)
         if increment_day:
             self.days_completed += 1
         print(f"✅ '{topic}' marked complete! Days completed: {self.days_completed}")
     
-    def calculate_completion(self, total_topics):
+    def calculate_completion(self, total_topics: int) -> str:
         percentage = (len(self.topics_studied) / total_topics) * 100
         return f"Progress: {len(self.topics_studied)}/{total_topics} topics — {percentage:.1f}% complete"
 
-    def export_progress(self, filename):
+    def export_progress(self, filename: str) -> None:
         data = {
             "current_week": self.current_week,
             "days_completed": self.days_completed,
